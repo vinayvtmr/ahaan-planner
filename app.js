@@ -27,13 +27,18 @@ function renderCalendar() {
   }
 
   for (let day = 1; day <= totalDays; day++) {
+
     const dateKey = `${year}-${month + 1}-${day}`;
 
     const div = document.createElement("div");
+
     div.classList.add("day");
 
+    // Default Available
     if (statuses[dateKey]) {
       div.classList.add(statuses[dateKey]);
+    } else {
+      div.classList.add("available");
     }
 
     div.innerText = day;
@@ -48,14 +53,19 @@ function renderCalendar() {
 }
 
 function openPopup() {
-  document.getElementById("popup").classList.remove("hidden");
+  document
+    .getElementById("popup")
+    .classList.remove("hidden");
 }
 
 function closePopup() {
-  document.getElementById("popup").classList.add("hidden");
+  document
+    .getElementById("popup")
+    .classList.add("hidden");
 }
 
 function setStatus(status) {
+
   statuses[selectedDate] = status;
 
   localStorage.setItem(
@@ -64,10 +74,12 @@ function setStatus(status) {
   );
 
   closePopup();
+
   renderCalendar();
 }
 
 function clearStatus() {
+
   delete statuses[selectedDate];
 
   localStorage.setItem(
@@ -76,17 +88,30 @@ function clearStatus() {
   );
 
   closePopup();
+
   renderCalendar();
 }
 
-document.getElementById("prevMonth").onclick = () => {
-  currentDate.setMonth(currentDate.getMonth() - 1);
-  renderCalendar();
+document
+  .getElementById("prevMonth")
+  .onclick = () => {
+
+    currentDate.setMonth(
+      currentDate.getMonth() - 1
+    );
+
+    renderCalendar();
 };
 
-document.getElementById("nextMonth").onclick = () => {
-  currentDate.setMonth(currentDate.getMonth() + 1);
-  renderCalendar();
+document
+  .getElementById("nextMonth")
+  .onclick = () => {
+
+    currentDate.setMonth(
+      currentDate.getMonth() + 1
+    );
+
+    renderCalendar();
 };
 
 renderCalendar();
