@@ -1,50 +1,114 @@
-const calendar = document.getElementById("calendar");
-const monthYear = document.getElementById("monthYear");
+const calendar =
+  document.getElementById("calendar");
+
+const monthYear =
+  document.getElementById("monthYear");
 
 let currentDate = new Date();
+
 let selectedDate = null;
 
-const statuses = JSON.parse(localStorage.getItem("statuses")) || {};
+const statuses =
+  JSON.parse(
+    localStorage.getItem("statuses")
+  ) || {};
 
 function renderCalendar() {
+
   calendar.innerHTML = "";
 
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
+  const year =
+    currentDate.getFullYear();
+
+  const month =
+    currentDate.getMonth();
 
   monthYear.innerText =
-    currentDate.toLocaleString("default", {
-      month: "long",
-      year: "numeric"
-    });
+    currentDate.toLocaleString(
+      "default",
+      {
+        month: "long",
+        year: "numeric"
+      }
+    );
 
-  const firstDay = new Date(year, month, 1).getDay();
-  const totalDays = new Date(year, month + 1, 0).getDate();
+  const firstDay =
+    new Date(year, month, 1).getDay();
+
+  const totalDays =
+    new Date(year, month + 1, 0).getDate();
 
   for (let i = 0; i < firstDay; i++) {
-    const empty = document.createElement("div");
+
+    const empty =
+      document.createElement("div");
+
     calendar.appendChild(empty);
   }
 
   for (let day = 1; day <= totalDays; day++) {
 
-    const dateKey = `${year}-${month + 1}-${day}`;
+    const dateKey =
+      `${year}-${month + 1}-${day}`;
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     div.classList.add("day");
 
-    // Default Available
+    // DEFAULT AVAILABLE
+
     if (statuses[dateKey]) {
-      div.classList.add(statuses[dateKey]);
+
+      div.classList.add(
+        statuses[dateKey].status
+      );
+
     } else {
+
       div.classList.add("available");
     }
 
     div.innerText = day;
 
     div.onclick = () => {
+
       selectedDate = dateKey;
+
+      // PREFILL
+
+      if (statuses[dateKey]) {
+
+        document.getElementById(
+          "guestName"
+        ).value =
+          statuses[dateKey].guest || "";
+
+        document.getElementById(
+          "advanceAmount"
+        ).value =
+          statuses[dateKey].advance || "";
+
+        document.getElementById(
+          "finalAmount"
+        ).value =
+          statuses[dateKey].final || "";
+
+      } else {
+
+        document.getElementById(
+          "guestName"
+        ).value = "";
+
+        document.getElementById(
+          "advanceAmount"
+        ).value = "";
+
+        document.getElementById(
+          "finalAmount"
+        ).value = "";
+      }
+
       openPopup();
     };
 
@@ -53,20 +117,62 @@ function renderCalendar() {
 }
 
 function openPopup() {
+
   document
     .getElementById("popup")
     .classList.remove("hidden");
 }
 
 function closePopup() {
+
   document
     .getElementById("popup")
     .classList.add("hidden");
 }
 
+function saveBooking() {
+
+  const guest =
+    document.getElementById(
+      "guestName"
+    ).value;
+
+  const advance =
+    document.getElementById(
+      "advanceAmount"
+    ).value;
+
+  const finalAmount =
+    document.getElementById(
+      "finalAmount"
+    ).value;
+
+  statuses[selectedDate] = {
+
+    status: "booked",
+
+    guest: guest,
+
+    advance: advance,
+
+    final: finalAmount
+  };
+
+  localStorage.setItem(
+    "statuses",
+    JSON.stringify(statuses)
+  );
+
+  closePopup();
+
+  renderCalendar();
+}
+
 function setStatus(status) {
 
-  statuses[selectedDate] = status;
+  statuses[selectedDate] = {
+    status: status
+  };
 
   localStorage.setItem(
     "statuses",
