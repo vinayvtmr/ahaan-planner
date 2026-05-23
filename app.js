@@ -94,6 +94,11 @@ function renderCalendar() {
         ).value =
           statuses[dateKey].final || "";
 
+        document.getElementById(
+          "totalNights"
+        ).value =
+          statuses[dateKey].nights || "";
+
       } else {
 
         document.getElementById(
@@ -106,6 +111,10 @@ function renderCalendar() {
 
         document.getElementById(
           "finalAmount"
+        ).value = "";
+
+        document.getElementById(
+          "totalNights"
         ).value = "";
       }
 
@@ -148,16 +157,11 @@ function saveBooking() {
     ).value;
 
   const totalNights =
-
-  parseInt(
-
-    document.getElementById(
-
-      "totalNights"
-
-    ).value
-
-  );
+    parseInt(
+      document.getElementById(
+        "totalNights"
+      ).value
+    );
 
   if (!totalNights || totalNights < 1) {
     return;
