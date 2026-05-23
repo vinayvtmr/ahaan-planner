@@ -163,7 +163,19 @@ function saveBooking() {
       ).value
     );
 
-  if (!totalNights || totalNights < 1) {
+  // MANDATORY VALIDATION
+
+  if (
+    guest.trim() === "" ||
+    advance.trim() === "" ||
+    finalAmount.trim() === "" ||
+    !totalNights
+  ) {
+
+    alert(
+      "Please fill all booking details"
+    );
+
     return;
   }
 
