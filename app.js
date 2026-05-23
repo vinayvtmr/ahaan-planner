@@ -148,9 +148,16 @@ function saveBooking() {
     ).value;
 
   const totalNights =
-    parseInt(
-      prompt("Total Nights?")
-    );
+
+  parseInt(
+
+    document.getElementById(
+
+      "totalNights"
+
+    ).value
+
+  );
 
   if (!totalNights || totalNights < 1) {
     return;
