@@ -75,7 +75,7 @@ function renderCalendar() {
 
       selectedDate = dateKey;
 
-      // PREFILL
+      // PREFILL EXISTING DATA
 
       if (statuses[dateKey]) {
 
@@ -147,16 +147,54 @@ function saveBooking() {
       "finalAmount"
     ).value;
 
-  statuses[selectedDate] = {
+  const totalNights =
+    parseInt(
+      prompt("Total Nights?")
+    );
 
-    status: "booked",
+  if (!totalNights || totalNights < 1) {
+    return;
+  }
 
-    guest: guest,
+  const startDate =
+    new Date(selectedDate);
 
-    advance: advance,
+  // BOOK MULTIPLE DAYS
 
-    final: finalAmount
-  };
+  for (let i = 0; i < totalNights; i++) {
+
+    const bookingDate =
+      new Date(startDate);
+
+    bookingDate.setDate(
+      startDate.getDate() + i
+    );
+
+    const year =
+      bookingDate.getFullYear();
+
+    const month =
+      bookingDate.getMonth() + 1;
+
+    const day =
+      bookingDate.getDate();
+
+    const dateKey =
+      `${year}-${month}-${day}`;
+
+    statuses[dateKey] = {
+
+      status: "booked",
+
+      guest: guest,
+
+      advance: advance,
+
+      final: finalAmount,
+
+      nights: totalNights
+    };
+  }
 
   localStorage.setItem(
     "statuses",
