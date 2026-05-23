@@ -2,19 +2,23 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0" />
 
   <title>Ahaan Planner</title>
 
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest"
+        href="manifest.json">
 
   <link rel="stylesheet"
         href="style.css">
 
   <meta name="theme-color"
         content="#111111">
+
 </head>
 
 <body>
@@ -22,6 +26,8 @@
 <div class="app">
 
   <h1>📅 Ahaan Planner</h1>
+
+  <!-- HEADER -->
 
   <div class="calendar-header">
 
@@ -37,7 +43,10 @@
 
   </div>
 
+  <!-- DAYS -->
+
   <div class="days">
+
     <div>Sun</div>
     <div>Mon</div>
     <div>Tue</div>
@@ -45,7 +54,10 @@
     <div>Thu</div>
     <div>Fri</div>
     <div>Sat</div>
+
   </div>
+
+  <!-- CALENDAR -->
 
   <div id="calendar"
        class="calendar"></div>
@@ -61,29 +73,43 @@
 
     <h3>Select Status</h3>
 
+    <!-- GUEST -->
+
     <input type="text"
            id="guestName"
            placeholder="Guest Name">
+
+    <!-- ADVANCE -->
 
     <input type="number"
            id="advanceAmount"
            placeholder="Advance Amount">
 
+    <!-- FINAL -->
+
     <input type="number"
            id="finalAmount"
            placeholder="Final Amount">
+
+    <!-- SAVE BOOKING -->
 
     <button onclick="saveBooking()">
       🔴 Save Booking
     </button>
 
+    <!-- CANCELLED -->
+
     <button onclick="setStatus('cancelled')">
       ⚫ Cancelled
     </button>
 
+    <!-- AVAILABLE -->
+
     <button onclick="clearStatus()">
       🟢 Available
     </button>
+
+    <!-- CLOSE -->
 
     <button onclick="closePopup()">
       Close
